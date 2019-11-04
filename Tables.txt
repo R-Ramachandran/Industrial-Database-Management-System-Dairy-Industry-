@@ -1,0 +1,67 @@
+﻿create table Login (
+User_Id varchar(20) primary key,
+password varchar(20) not null);
+
+create table Admin (
+A_Id varchar(15) primary key,
+A_Name varchar(40) not null,
+A_Gender varchar(2),
+A_Ph varchar(15) not null,
+A_Dob varchar(15),
+A_D_Id varchar(15),
+A_Address varchar(40),
+A_User_Id varchar(15) unique not null references Login,
+A_Password varchar(15) not null,
+A_Image varchar(150) default "D:\VIT\Database Management System\Project\PyQT\Images\Admin.PNG");
+
+create table Employee (
+E_Name varchar(40) not null,
+E_Id varchar(15) primary key,
+E_Gender varchar(2),
+E_Dob varchar(15),
+E_D_Id varchar(15) references Department,
+E_A_Id varchar(15) references Admin,
+E_Ph varchar(15) not null,
+E_Salary varchar(15) not null,
+E_Join_Date varchar(15) not null,
+E_Address varchar(40),
+E_Job_Title varchar(15) not null,
+E_User_Id varchar(15) unique not null references Login,
+E_Password varchar(15) not null,
+E_Image varchar(150) default "D:\VIT\Database Management System\Project\PyQT\Images\Admin.PNG");
+
+create table Department (
+D_Id varchar(15) primary key,
+D_A_Id varchar(15) unique not null references Admin,
+D_Name varchar(15) not null unique);
+
+create table Seller (
+S_Name varchar(40) not null,
+S_Id varchar(15) primary key,
+S_Gender varchar(2),
+S_Dob varchar(15),
+S_Salary varchar(15) not null,
+S_E_Id varchar(15) unique not null references Employee,
+S_Ph varchar(15) not null,
+S_Address varchar(40),
+S_User_Id varchar(15) unique not null references Login,
+S_Password varchar(15) not null,
+S_Image varchar(150) default "D:\VIT\Database Management System\Project\PyQT\Images\Admin.PNG");
+
+create table Daily_Milk_Sale (
+DS_S_Id varchar(15) unique not null references Seller,
+DS_Date varchar(15) not null,
+DS_Milk_Qty varchar(15) not null,
+DS_Cattle_Type varchar(15),
+DS_Expiry_Date varchar(15) not null);
+
+create table Bill (
+B_Id varchar(15) primary key,
+B_S_Id varchar(15) unique not null references Seller on delete set null,
+B_Amount varchar(15) not null,
+B_Milk_Qty varchar(15) not null,
+B_Date varchar(15) not null,
+B_E_Id varchar(15) unique not null references Employee on delete set null);
+
+
+
